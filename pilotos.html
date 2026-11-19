@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ApexCore | Pilotos</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -24,10 +24,14 @@
   <main>
     <h1>Parrilla de Pilotos</h1>
 
-    <!-- Contenedor donde main.js inyecta las tarjetas -->
-    <section id="contenedor-pilotos"></section>
+    <div class="controles-busqueda">
+      <input type="search" id="busqueda-pilotos" placeholder="Buscar piloto por nombre o siglas..." aria-label="Buscar piloto">
+      <select id="filtro-escuderia" aria-label="Filtrar por escudería">
+        <option value="">Todas las escuderías</option>
+      </select>
+    </div>
 
-    <!-- Contenedor donde main.js muestra la ficha al hacer clic -->
+    <section id="contenedor-pilotos"></section>
     <section id="detalle-piloto"></section>
   </main>
 

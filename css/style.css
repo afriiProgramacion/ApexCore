@@ -1,0 +1,374 @@
+/* =========================================
+   1. VARIABLES Y RESET BÁSICO (TEMA F1)
+   ========================================= */
+:root {
+  --bg-principal: #0f1115;
+  --bg-secundario: #181b22;
+  --bg-tarjeta: #1f242d;
+  --bg-tarjeta-hover: #272d38;
+  --acento-f1: #e10600;
+  --acento-f1-hover: #ff1e17;
+  --texto-principal: #f3f4f6;
+  --texto-secundario: #9ca3af;
+  --borde-sutil: #2e3440;
+  --radio-borde: 10px;
+  --transicion: 0.25s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   2. MENÚ DE NAVEGACIÓN (HEADER / NAV)
+   ========================================= */
+header {
+  background-color: var(--bg-secundario);
+  border-bottom: 3px solid var(--acento-f1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav > a {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--texto-principal);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav > a::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 24px;
+  background-color: var(--acento-f1);
+  transform: skewX(-15deg);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav ul a {
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: color var(--transicion), background-color var(--transicion);
+}
+
+nav ul a:hover {
+  color: var(--texto-principal);
+  background-color: var(--bg-tarjeta);
+}
+
+/* =========================================
+   3. CONTENEDOR PRINCIPAL Y TÍTULOS
+   ========================================= */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+main h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  border-left: 5px solid var(--acento-f1);
+}
+
+/* =========================================
+   4. GRID DE LISTADOS (PILOTOS Y ESCUDERÍAS)
+   ========================================= */
+#contenedor-pilotos,
+#contenedor-escuderias,
+#contenedor-circuitos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjetas generadas dinámicamente por JS */
+.piloto,
+.escuderia,
+.circuito {
+  background-color: var(--bg-tarjeta);
+  border: 1px solid var(--borde-sutil);
+  border-top: 3px solid transparent;
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: transform var(--transicion), background-color var(--transicion), border-color var(--transicion), box-shadow var(--transicion);
+}
+
+.piloto:hover,
+.escuderia:hover,
+.circuito:hover {
+  transform: translateY(-4px);
+  background-color: var(--bg-tarjeta-hover);
+  border-top-color: var(--acento-f1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.piloto h2,
+.escuderia h2,
+.circuito h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+  color: var(--texto-principal);
+}
+
+.piloto p,
+.escuderia p,
+.circuito p {
+  color: var(--texto-secundario);
+  font-size: 0.95rem;
+}
+
+/* =========================================
+   5. FICHA DE DETALLE (AL PULSAR TARJETA)
+   ========================================= */
+#detalle-piloto:not(:empty),
+#detalle-escuderia:not(:empty),
+#detalle-circuito:not(:empty) {
+  margin-top: 2.5rem;
+  background-color: var(--bg-secundario);
+  border: 1px solid var(--borde-sutil);
+  border-left: 5px solid var(--acento-f1);
+  border-radius: var(--radio-borde);
+  padding: 2rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  animation: aparecer 0.25s ease-out;
+}
+
+#detalle-piloto h2,
+#detalle-escuderia h2,
+#detalle-circuito h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--texto-principal);
+}
+
+#detalle-piloto p,
+#detalle-escuderia p,
+#detalle-circuito p {
+  font-size: 1.05rem;
+  color: var(--texto-secundario);
+  margin-bottom: 0.5rem;
+}
+
+/* Botones dentro del detalle (si añades botón de cerrar) */
+#detalle-piloto button,
+#detalle-escuderia button {
+  margin-top: 1.2rem;
+  background-color: var(--acento-f1);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color var(--transicion);
+}
+
+#detalle-piloto button:hover,
+#detalle-escuderia button:hover {
+  background-color: var(--acento-f1-hover);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+footer {
+  background-color: var(--bg-secundario);
+  border-top: 1px solid var(--borde-sutil);
+  text-align: center;
+  padding: 1.2rem;
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* =========================================
+   8. CONTROLES DE BÚSQUEDA / FILTRO
+   ========================================= */
+.controles-busqueda {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.controles-busqueda input[type="search"],
+.controles-busqueda select {
+  background-color: var(--bg-tarjeta);
+  color: var(--texto-principal);
+  border: 1px solid var(--borde-sutil);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  flex: 1;
+  min-width: 220px;
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+}
+
+.controles-busqueda input[type="search"]:focus,
+.controles-busqueda select:focus {
+  outline: none;
+  border-color: var(--acento-f1);
+  box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.25);
+}
+
+/* =========================================
+   9. FOTO DE PILOTO
+   ========================================= */
+.piloto-foto {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+  background-color: var(--bg-secundario);
+  border-radius: 6px;
+}
+
+.piloto-foto-detalle {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  background-color: var(--bg-secundario);
+  border-radius: 8px;
+}
+   ========================================= */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    gap: 0.75rem;
+  }
+
+  main h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* =========================================
+   10. MODAL (VENTANITA)
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: aparecer 0.2s ease-out;
+}
+
+.modal-contenido {
+  background-color: var(--bg-secundario);
+  border: 1px solid var(--borde-sutil);
+  border-left: 5px solid var(--acento-f1);
+  border-radius: var(--radio-borde);
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.modal-cerrar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--texto-secundario);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transicion);
+}
+
+.modal-cerrar:hover {
+  color: var(--acento-f1);
+}
+
+.modal-cuerpo h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--texto-principal);
+}
+
+.modal-cuerpo p {
+  font-size: 1.05rem;
+  color: var(--texto-secundario);
+  margin-bottom: 0.5rem;
+}
+
+.modal-cuerpo img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  background-color: var(--bg-tarjeta);
+  border-radius: 8px;
+}
